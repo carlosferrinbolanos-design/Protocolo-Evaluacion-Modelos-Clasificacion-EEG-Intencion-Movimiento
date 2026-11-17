@@ -22,6 +22,12 @@ Con 10 particiones repetidas, ningún modelo supera de forma significativa al az
 
 > **Conjunto de evaluación:** cada combinación de conjunto de datos y condición que se evalúa por separado (001-2017 ejecución, 001-2017 imaginación, 001-2019 lesión medular; 001-2020 gel, agua y seco). En las pruebas estadísticas, cada conjunto de evaluación actúa como un bloque.
 
+## Alcance de la evaluación (Figura 1)
+
+![Flujo de una BCI motora para el control de una órtesis de mano](figures/Figura_pipeline_BCI.png)
+
+**Figura 1.** Flujo de una BCI motora para el control de una órtesis de mano y alcance de la evaluación de este trabajo. El recuadro naranja delimita el alcance de la **evaluación offline**, que cubre los **pasos 3 a 5** (segmentación en épocas, extracción de características o aprendizaje profundo, y decodificación de la intención). El **paso 6** (comando a la órtesis de mano) y la validación en línea en lazo cerrado quedan **fuera del alcance**. El script que genera la figura es [`scripts/make_fig_pipeline_bci.py`](scripts/make_fig_pipeline_bci.py). Esta versión del repositorio corresponde a la versión final del artículo (noviembre 2026).
+
 ## Cita
 > Rodriguez Chamorro, D. A., y Ferrin Bolaños, C. D. (2026). *Protocolo de evaluación comparativa con diagrama de diferencia crítica para decodificar la intención de movimiento de mano desde EEG orientado a órtesis en lesión medular.* [Revista, volumen, páginas y DOI por completar cuando se publique.]
 
@@ -49,6 +55,7 @@ python scripts/verificar_resultados.py --regenerado $RESULTADOS/tables --estrict
 │   ├── deep_core.py, 03_run_deep.py    #   EEGNet, ShallowConvNet, DeepConvNet (--weighted_cosine en 001-2019)
 │   ├── 04_analyze.py, 04b_pairwise_LME.py  # métricas, Friedman/Nemenyi/DC, Wilcoxon-Holm, Bayes, azar (Pruebas)
 │   ├── 05_tables.py, 06_fig_cajas.py   #   tablas y figuras en español
+│   ├── make_fig_pipeline_bci.py        #   Figura 1 del artículo (pipeline de la BCI motora)
 │   ├── verificar_resultados.py         #   comparación de lo regenerado con lo publicado, con tolerancias
 │   ├── build_notebook.py, terminologia.py  # generación del cuaderno
 │   └── colab/                          #   lanzadores usados en Colab (VMs efímeras)
@@ -58,7 +65,7 @@ python scripts/verificar_resultados.py --regenerado $RESULTADOS/tables --estrict
 ├── tables/                             # tablas publicadas (CSV, JSON, Markdown en español)
 │   ├── anteriores_sin_ponderacion_ni_scheduler/   # v1: redes de 001-2019 sin ponderación ni programador
 │   └── v3_particion_unica_estudio/     # ejecución v3 del estudio (partición única, 6 conjuntos de evaluación)
-├── figures/                            # diagramas DC y figuras de cajas (PNG 300 ppp, SVG, PDF)
+├── figures/                            # Figura 1 (pipeline BCI), diagramas DC y figuras de cajas (PNG 300 ppp, SVG, PDF)
 └── docs/                               # METODOLOGIA, DATOS, MODELOS, ESTADISTICA, REPRODUCIBILIDAD, RESULTADOS, LIMITACIONES, CHANGELOG
 ```
 
@@ -108,16 +115,17 @@ Detalles, semillas, límites del determinismo y lista de verificación para revi
 ## Correspondencia entre el artículo y el repositorio
 | Elemento del artículo | Celda del cuaderno | Script | Archivo de salida |
 |---|---|---|---|
-| Figura 1: etapas del protocolo | Estructura A (Análisis) → B (Diseño) → C (Implementación) → D (Pruebas) | — | [docs/METODOLOGIA.md](docs/METODOLOGIA.md) (diagrama mermaid) |
-| Figura 2: flujo PRISMA | No aplica (revisión de literatura) | — | — |
+| Figura 1: flujo de una BCI motora | — (alcance: evaluación offline, pasos 3 a 5; paso 6 y lazo cerrado fuera de alcance) | `make_fig_pipeline_bci.py` | `figures/Figura_pipeline_BCI.png` |
+| Figura 2: etapas del protocolo | Estructura A (Análisis) → B (Diseño) → C (Implementación) → D (Pruebas) | — | [docs/METODOLOGIA.md](docs/METODOLOGIA.md) (diagrama mermaid) |
+| Figura 3: flujo PRISMA | No aplica (revisión de literatura) | — | — |
 | Tabla 1: conjuntos de evaluación y partición disjunta (k = 0: S08 S13 S15 / S08 S10 S14 / P06 P10) | A-2, B-1 | `01_extract_epochs.py`, `core.py::split` | `preds/*__s0.json` (`test_subjects`), `tables/v3_particion_unica_estudio/` |
 | Tabla 2: requisitos del diagrama DC | P-3 (N, k, bloques, independencia) | `04_analyze.py` | `tables/stats.json`, [docs/ESTADISTICA.md](docs/ESTADISTICA.md) |
 | Tabla 3: exactitud balanceada real y permutada, partición única (6 conjuntos de evaluación) | P-1, P-2 (k = 0) | v3 del estudio; `02_run_classical.py` y `03_run_deep.py` con k = 0 | `tables/v3_particion_unica_estudio/*.csv`, `tables/reproduccion_semilla0_vs_david.csv` |
-| Figura 3: DC con partición única (v2) | P-3 y P-5 con k = 0 | — (figura v2 del estudio) | Valores en `tables/v3_particion_unica_estudio/RESULTADOS_ETIQUETAS_REALES_CONSOLIDADOS_V2.csv` |
+| Figura 4: DC con partición única (v2) | P-3 y P-5 con k = 0 | — (figura v2 del estudio) | Valores en `tables/v3_particion_unica_estudio/RESULTADOS_ETIQUETAS_REALES_CONSOLIDADOS_V2.csv` |
 | Tabla 4: exactitud balanceada y MCC en 10 particiones (media ± DE) | P-2, P-6 | `04_analyze.py`, `05_tables.py` | `tables/summary_mean_sd.csv`, `tables/TABLAS_ES_listas_para_pegar.md` |
 | Tabla 4: rango promedio (N = 3) | P-3 | `04_analyze.py` | `tables/stats.json` → `blocks_strata.avg_ranks`; `tables/TABLAS_ES_estadistica.md` |
 | Tabla 4: p de Holm frente al azar en LM | P-4 | `04_analyze.py` | `tables/vs_chance.csv` (`p_holm`) |
-| Figura 4: exactitud balanceada en las 10 particiones | P-5 | `06_fig_cajas.py` | `figures/Figura_cajas_exactitud_balanceada.png` |
+| Figura 5: exactitud balanceada en las 10 particiones | P-5 | `06_fig_cajas.py` | `figures/Figura_cajas_exactitud_balanceada.png` |
 | Texto: Friedman χ² = 10,48, p = 0,063, p por permutación = 0,026, DC = 4,35 | P-3 | `04_analyze.py` | `tables/stats.json` → `balanced_accuracy.blocks_strata` |
 | Texto: Wilcoxon-Holm y ROPE | P-4 | `04_analyze.py`, `04b_pairwise_LME.py` | `tables/pairwise_*.csv` |
 | Texto: control por permutación (sin fuga de información) | P-1, P-4 | `02_run_classical.py`, `03_run_deep.py --control labels_permuted_within_train_participant` | `tables/permutation_control.csv` |
@@ -125,10 +133,12 @@ Detalles, semillas, límites del determinismo y lista de verificación para revi
 | Material suplementario: F1 macro y kappa | P-2, P-6 | `05_tables.py` | `tables/TABLAS_ES_listas_para_pegar.md` |
 
 ## Figuras
+La numeración coincide con la versión final del artículo. La Figura 1 está al inicio; la Figura 3 (PRISMA) y la Figura 4 (DC de la partición única v2) pertenecen al artículo y no se regeneran aquí.
+
 | | |
 |---|---|
-| ![DC exactitud balanceada](figures/DC_exactitud_balanceada_bloques_conjuntos.png) | ![DC MCC](figures/DC_MCC_bloques_conjuntos.png) |
-| ![Cajas exactitud balanceada](figures/Figura_cajas_exactitud_balanceada.png) | ![Cajas MCC](figures/Figura_cajas_MCC.png) |
+| ![Figura 1. Flujo de una BCI motora](figures/Figura_pipeline_BCI.png) | ![Figura 5. Exactitud balanceada en las 10 particiones](figures/Figura_cajas_exactitud_balanceada.png) |
+| ![DC exactitud balanceada (material suplementario, 10 particiones)](figures/DC_exactitud_balanceada_bloques_conjuntos.png) | ![DC MCC (material suplementario, 10 particiones)](figures/DC_MCC_bloques_conjuntos.png) |
 
 ## Datos
 Los registros de BNCI 001-2017 ([10.5281/zenodo.834976](https://doi.org/10.5281/zenodo.834976)), 001-2019 ([10.5281/zenodo.2222268](https://doi.org/10.5281/zenodo.2222268)) y 001-2020 (BNCI Horizon 2020) tienen licencia CC BY 4.0 y **no se redistribuyen**. Ver [docs/DATOS.md](docs/DATOS.md).

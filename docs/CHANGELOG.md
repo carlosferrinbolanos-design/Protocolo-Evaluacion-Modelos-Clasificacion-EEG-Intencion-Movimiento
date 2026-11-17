@@ -14,6 +14,10 @@ Versión que acompaña al artículo. Incluye todo lo anterior y además:
 - Semilla fija en la prueba bayesiana (`random_state = 20261113`): la estadística regenerada desde `preds/` es idéntica byte a byte.
 - Terminología del artículo: «conjunto de evaluación», «configuración establecida», «MDM» y etapas Análisis → Diseño → Implementación → Pruebas.
 - Cuaderno reproducible documentado (`TESIS_pipeline_reproducible.ipynb`, sin ejecutar), script de verificación y documentación completa.
+- Correspondencia con la versión final del artículo (noviembre 2026).
+- **Figura 1** del artículo (flujo de una BCI motora) en `figures/Figura_pipeline_BCI.png` y script `scripts/make_fig_pipeline_bci.py`. El alcance de la evaluación offline cubre los pasos 3 a 5; el paso 6 y el lazo cerrado en línea quedan fuera del alcance.
+- Numeración de figuras alineada con la versión final del artículo: Figura 2 (etapas del protocolo), Figura 3 (PRISMA), Figura 4 (diagrama DC de la partición única) y Figura 5 (cajas de exactitud balanceada).
+- Punto decimal (no coma) en el eje vertical de las figuras de cajas, como en el artículo.
 
 ## v1 — particiones repetidas (16-11-2026, 19:20–20:50, hora de Bogotá)
 - Se pasó de una partición única a **10 particiones 80/20 disjuntas por participante** (semillas 20261113 + k, k = 0…9; k = 0 es la partición establecida).
@@ -26,4 +30,4 @@ Versión que acompaña al artículo. Incluye todo lo anterior y además:
 ## v3 — partición única (estudio de David Rodriguez Chamorro, 13–14-11-2026)
 - Una partición 80/20 disjunta por participante (semilla 20261113) en 6 conjuntos de evaluación (001-2017 ME y MI; 001-2019; 001-2020 gel, agua y seco), con 6 modelos.
 - Control por permutación con la misma semilla.
-- Friedman con 6 bloques y diagrama DC (Figura 3 del artículo).
+- Friedman con 6 bloques y diagrama DC (Figura 4 del artículo).

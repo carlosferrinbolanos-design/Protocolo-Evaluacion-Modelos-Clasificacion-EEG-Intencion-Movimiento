@@ -36,9 +36,13 @@ Todos los números provienen de `tables/` y se pueden regenerar desde `preds/` (
 | MCC | Solo sanos (001-2017 ME/MI), partición × conjunto de evaluación | 20 | 0,45 | 0,994 | 0,994 | 0,995 | 1,69 | MDM 3,30; CSP+LDA 3,40; FBCSP+SVM 3,52; DeepConvNet 3,55; EEGNet 3,60; ShallowConvNet 3,62 |
 | MCC | Solo LME (001-2019), particiones | 10 | 7,30 | 0,199 | 0,197 | 0,193 | 2,38 | MDM 2,30; CSP+LDA 3,20; ShallowConvNet 3,35; FBCSP+SVM 3,90; EEGNet 3,95; DeepConvNet 4,30 |
 
+El diagrama siguiente es material suplementario (DC con 10 particiones y bloques = conjuntos de evaluación). La **Figura 4** del artículo es el DC de la partición única (v2).
+
 ![Diagrama DC, exactitud balanceada, bloques = conjuntos de evaluación](../figures/DC_exactitud_balanceada_bloques_conjuntos.png)
 
-![Exactitud balanceada por partición](../figures/Figura_cajas_exactitud_balanceada.png)
+**Figura 5 del artículo.** Exactitud balanceada en prueba en las 10 particiones disjuntas por participante; la línea discontinua indica el nivel de azar.
+
+![Figura 5. Exactitud balanceada en las 10 particiones](../figures/Figura_cajas_exactitud_balanceada.png)
 
 ## Lectura de los resultados
 1. **001-2017 (ME y MI, 7 clases):** los seis modelos están en el nivel de azar. La exactitud balanceada va de 0,142 a 0,144 (azar: 0,143), el MCC medio está entre −0,002 y 0,002, y la p de Holm frente al azar es 1 en todos los casos.

@@ -31,7 +31,7 @@ md(r'''
 | **Licencia del código** | MIT |
 
 ## Propósito
-Este cuaderno reproduce de extremo a extremo los resultados del artículo, siguiendo las cuatro etapas de su metodología (Figura 1): **Análisis → Diseño → Implementación → Pruebas**. Hace lo siguiente:
+Este cuaderno reproduce de extremo a extremo los resultados del artículo, siguiendo las cuatro etapas de su metodología (Figura 2): **Análisis → Diseño → Implementación → Pruebas**. Hace lo siguiente:
 1. Descarga los datos públicos (BNCI Horizon 2020 / Zenodo).
 2. Reconstruye las épocas a partir de los manifiestos congelados del estudio.
 3. Genera las **10 particiones 80/20 disjuntas por participante** (semillas **20261113 + k**, k = 0…9).
@@ -87,16 +87,17 @@ tablas/, figuras/                                            # salidas finales
 ```
 
 ## Correspondencia artículo ↔ cuaderno
-| Elemento del artículo (v3.6) | Celda del cuaderno | Script equivalente | Archivo de salida |
+| Elemento del artículo | Celda del cuaderno | Script equivalente | Archivo de salida |
 |---|---|---|---|
-| Figura 1 (etapas del protocolo) | estructura A → B → C → D | — | — |
-| Figura 2 (flujo PRISMA) | no aplica (revisión de literatura) | — | — |
+| Figura 1 (flujo de una BCI motora) | — (alcance: evaluación offline, pasos 3 a 5; paso 6 y lazo cerrado fuera de alcance) | `make_fig_pipeline_bci.py` | `figuras/Figura_pipeline_BCI.png` (en el repositorio: `figures/`) |
+| Figura 2 (etapas del protocolo) | estructura A → B → C → D | — | — |
+| Figura 3 (flujo PRISMA) | no aplica (revisión de literatura) | — | — |
 | Tabla 1 (estratos y partición disjunta por participante, k = 0) | A-2, B-1 | `01_extract_epochs.py`, `core.py` | `tablas/particiones.csv` |
 | Tabla 2 (requisitos del diagrama DC) | P-3 (N, k, bloques) | `04_analyze.py` | `tablas/stats.json` |
 | Tabla 3 (exactitud balanceada real y permutada, partición única) | P-1, P-2 (filtrar k = 0), P-6 | `02_run_classical.py`, `03_run_deep.py`, `05_tables.py` | `tablas/metrics_per_split.csv`, `tablas/permutation_control.csv` |
-| Figura 3 (DC con partición única v2) | P-3 y P-5 restringidos a k = 0 | `04_analyze.py` | — (figura de la versión v2 del estudio) |
+| Figura 4 (DC con partición única v2) | P-3 y P-5 restringidos a k = 0 | `04_analyze.py` | — (figura de la versión v2 del estudio) |
 | Tabla 4 (BA y MCC en 10 particiones, rango promedio N = 3, p de Holm frente al azar) | P-2, P-3, P-4, P-6 | `04_analyze.py`, `05_tables.py` | `tablas/TABLAS_ES_listas_para_pegar.md`, `tablas/TABLAS_ES_estadistica.md`, `tablas/vs_chance.csv` |
-| Figura 4 (exactitud balanceada en las 10 particiones) | P-5 | `06_fig_cajas.py` | `figuras/Figura_cajas_exactitud_balanceada.png` |
+| Figura 5 (exactitud balanceada en las 10 particiones) | P-5 | `06_fig_cajas.py` | `figuras/Figura_cajas_exactitud_balanceada.png` |
 | Material suplementario: DC con 10 particiones, Wilcoxon-Holm, ROPE, MCC | P-3, P-4, P-5 | `04_analyze.py`, `04b_pairwise_LME.py` | `figuras/DC_*`, `tablas/pairwise_*.csv` |
 | Verificación de números | P-7 | `verificar_resultados.py` | — |
 
@@ -719,7 +720,8 @@ display(PARES["balanced_accuracy"].round(3)); display(VS_AZAR.round(4))
 
 md(r'''
 ## P-5. Figuras (solo en español): diagramas DC y distribución por partición
-**Figura 4 del artículo:** diagrama de diferencia crítica. Rango 1 = mejor; la barra roja une modelos cuya diferencia de rango promedio es menor que la DC. Se generan en PNG (300 ppp), SVG y PDF.
+**Figura 4 del artículo:** diagrama de diferencia crítica de la exactitud balanceada con partición única (v2); aquí se generan además los DC de las particiones repetidas. Rango 1 = mejor; la barra roja une modelos cuya diferencia de rango promedio es menor que la DC. Se generan en PNG (300 ppp), SVG y PDF.
+**Figura 5 del artículo:** exactitud balanceada en prueba en las 10 particiones disjuntas por participante (`Figura_cajas_exactitud_balanceada`); la línea discontinua indica el nivel de azar.
 ''')
 code(r'''
 def fc(x: float, n: int = 2) -> str:
@@ -783,7 +785,7 @@ def figura_cajas(metrica: str, etiqueta_y: str, archivo: Path) -> None:
         for i, v in enumerate(datos): ax.scatter(np.full(len(v), i + 1) + np.random.default_rng(i).uniform(-.15, .15, len(v)), v, s=3, color="k", alpha=.5, zorder=3)
         ax.axhline(AZAR[e] if metrica == "balanced_accuracy" else 0, ls="--", color="gray", lw=.8)
         ax.set_title(titulos[e], fontsize=7); ax.set_xticks(range(1, 7)); ax.set_xticklabels(etq, fontsize=5.2); ax.tick_params(axis="y", labelsize=6)
-        ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: fc(x, 3)))
+        ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: f'{x:.3f}'))  # punto decimal, como en el artículo
     axs[0][0].set_ylabel(etiqueta_y, fontsize=7)
     fig.text(.5, .005, "Cada punto es una partición 80/20 disjunta por participante (10 semillas); línea discontinua = " + ("nivel de azar" if metrica == "balanced_accuracy" else "MCC de 0 (azar)"), ha="center", fontsize=6, style="italic")
     plt.tight_layout(rect=(0, .04, 1, 1))

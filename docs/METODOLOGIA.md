@@ -2,12 +2,18 @@
 
 > **Conjunto de evaluación:** cada combinación de conjunto de datos y condición que se evalúa por separado (001-2017 ejecución, 001-2017 imaginación, 001-2019 lesión medular y, si están disponibles, 001-2020 gel, agua y seco). En las pruebas estadísticas, cada conjunto de evaluación actúa como un bloque.
 
-El protocolo tiene cuatro etapas, que corresponden a la **Figura 1** del artículo: **Análisis → Diseño → Implementación → Pruebas**. Cada etapa tiene una sección en el cuaderno `TESIS_pipeline_reproducible.ipynb` (A, B, C y D) y uno o más scripts en `scripts/`.
+## Figura 1. Flujo de una BCI motora
+
+![Flujo de una BCI motora para el control de una órtesis de mano](../figures/Figura_pipeline_BCI.png)
+
+**Figura 1 del artículo.** Flujo de una BCI motora para el control de una órtesis de mano y alcance de la evaluación de este trabajo. El recuadro naranja delimita el alcance de la **evaluación offline**, que cubre los **pasos 3 a 5** (segmentación en épocas, extracción de características o aprendizaje profundo, y decodificación de la intención). El **paso 6** (comando a la órtesis de mano) y la validación en línea en lazo cerrado quedan **fuera del alcance**. El script que genera la figura es [`scripts/make_fig_pipeline_bci.py`](../scripts/make_fig_pipeline_bci.py).
+
+El protocolo tiene cuatro etapas, que corresponden a la **Figura 2** del artículo: **Análisis → Diseño → Implementación → Pruebas**. Cada etapa tiene una sección en el cuaderno `TESIS_pipeline_reproducible.ipynb` (A, B, C y D) y uno o más scripts en `scripts/`.
 
 ```mermaid
 flowchart LR
     subgraph A["Análisis"]
-        A1["Revisión estructurada<br/>(PRISMA 2020)"] --> A2["Conjuntos públicos BNCI<br/>001-2017 · 001-2019 · 001-2020"]
+        A1["Revisión estructurada<br/>(PRISMA)"] --> A2["Conjuntos públicos BNCI<br/>001-2017 · 001-2019 · 001-2020"]
         A2 --> A3["Reglas de inclusión<br/>S01_ME excluido; ME y MI separados;<br/>001-2019 offline; 001-2020 por electrodo"]
     end
     subgraph B["Diseño"]

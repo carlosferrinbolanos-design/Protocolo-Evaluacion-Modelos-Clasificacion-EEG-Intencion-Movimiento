@@ -1,6 +1,6 @@
 # Partición única v3 (estudio de David Rodriguez Chamorro, 13–14-11-2026)
 
-Resultados de la ejecución v3 del estudio con la partición establecida (semilla 20261113) en los **6 conjuntos de evaluación**, incluidos los tres de 001-2020. Sirven para verificar las **Tablas 1 y 3** y la **Figura 3** del artículo. Se copian sin modificaciones desde la carpeta del estudio (`Correccion_pipeline_EEG_v2_2026-11-11/cierre_metodologico_ferrin_v2/` y `control_permutacion_v2/`).
+Resultados de la ejecución v3 del estudio con la partición establecida (semilla 20261113) en los **6 conjuntos de evaluación**, incluidos los tres de 001-2020. Sirven para verificar las **Tablas 1 y 3** y la **Figura 4** del artículo. Se copian sin modificaciones desde la carpeta del estudio (`Correccion_pipeline_EEG_v2_2026-11-11/cierre_metodologico_ferrin_v2/` y `control_permutacion_v2/`).
 
 | Archivo | Contenido |
 |---|---|
