@@ -1,0 +1,1 @@
+{"stratum": "001-2017_MI", "model": "DeepConvNet", "control": "true_labels", "seed_idx": 6, "seed": 20261119, "runtime_s": 30.45348811149597, "test_subjects": ["S06", "S09", "S12"], "n_test": 1260}

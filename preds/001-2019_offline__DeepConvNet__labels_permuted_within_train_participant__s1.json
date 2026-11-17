@@ -1,0 +1,1 @@
+{"stratum": "001-2019_offline", "model": "DeepConvNet", "control": "labels_permuted_within_train_participant", "seed_idx": 1, "seed": 20261114, "runtime_s": 17.534746885299683, "test_subjects": ["P01", "P08"], "n_test": 718}

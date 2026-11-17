@@ -1,0 +1,1 @@
+{"stratum": "001-2017_ME", "model": "EEGNet", "control": "true_labels", "seed_idx": 0, "seed": 20261113, "runtime_s": 41.371034145355225, "test_subjects": ["S08", "S13", "S15"], "n_test": 1260}

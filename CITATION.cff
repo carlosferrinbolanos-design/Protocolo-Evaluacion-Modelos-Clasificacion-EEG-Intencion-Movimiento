@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "Si usa este código o estos resultados, cite el artículo y este repositorio."
+title: "Protocolo de evaluación comparativa con diagrama de diferencia crítica para decodificar la intención de movimiento de mano desde EEG orientado a órtesis en lesión medular — código y resultados reproducibles"
+version: "1.0-articulo"
+date-released: "2026-11-17"
+license: MIT
+repository-code: "https://github.com/carlosferrinbolanos-design/Protocolo-Evaluacion-Modelos-Clasificacion-EEG-Intencion-Movimiento"
+authors:
+  - family-names: "Rodriguez Chamorro"
+    given-names: "David Aogusto"
+    affiliation: "Universidad Santiago de Cali, Maestría en Informática"
+  - family-names: "Ferrin Bolaños"
+    given-names: "Carlos Diego"
+    affiliation: "Universidad Santiago de Cali, Maestría en Informática"
+keywords: [EEG, "interfaz cerebro-computador", "lesión medular", "diagrama de diferencia crítica", "prueba de Friedman", "fuga de información"]
+preferred-citation:
+  type: article
+  title: "Protocolo de evaluación comparativa con diagrama de diferencia crítica para decodificar la intención de movimiento de mano desde EEG orientado a órtesis en lesión medular"
+  authors:
+    - family-names: "Rodriguez Chamorro"
+      given-names: "David Aogusto"
+    - family-names: "Ferrin Bolaños"
+      given-names: "Carlos Diego"
+  year: 2026
+  notes: "Artículo en proceso de publicación; completar revista, volumen y DOI cuando estén disponibles."
+references:
+  - type: dataset
+    title: "Upper limb movements can be decoded from the time-domain of low-frequency EEG (BNCI 001-2017)"
+    authors: [{family-names: Ofner, given-names: Patrick}]
+    year: 2017
+    doi: "10.5281/zenodo.834976"
+  - type: dataset
+    title: "Attempted arm and hand movements can be decoded from low-frequency EEG from persons with spinal cord injury (BNCI 001-2019)"
+    authors: [{family-names: Ofner, given-names: Patrick}]
+    year: 2019
+    doi: "10.5281/zenodo.2222268"
+  - type: dataset
+    title: "Decoding natural reach-and-grasp actions from human EEG (BNCI 001-2020)"
+    authors: [{family-names: Schwarz, given-names: Andreas}]
+    year: 2020
+    url: "https://bnci-horizon-2020.eu/database/data-sets"

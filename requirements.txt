@@ -1,0 +1,12 @@
+# Entorno fijado con el que se generaron los resultados (Colab, Python 3.13, GPU T4).
+# torch se usa en la versión preinstalada de Colab (2.14.1+cu130); fuera de Colab instale la equivalente para su CUDA.
+numpy==2.4.6
+scipy==1.16.3
+scikit-learn==1.6.1
+pandas==2.2.3
+matplotlib==3.10.0
+mne==1.13.2
+pyriemann==0.12
+baycomp==1.0.3
+torch==2.14.1
+nbformat>=5.10

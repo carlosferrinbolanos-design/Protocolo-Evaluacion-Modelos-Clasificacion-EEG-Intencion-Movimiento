@@ -1,0 +1,1 @@
+{"stratum": "001-2019_offline", "model": "CSP_LDA", "control": "true_labels", "seed_idx": 4, "seed": 20261117, "runtime_s": 125.99343514442444, "test_subjects": ["P01", "P05"], "n_test": 718}

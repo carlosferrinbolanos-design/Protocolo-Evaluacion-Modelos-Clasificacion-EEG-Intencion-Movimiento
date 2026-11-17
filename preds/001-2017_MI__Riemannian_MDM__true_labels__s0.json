@@ -1,0 +1,1 @@
+{"stratum": "001-2017_MI", "model": "Riemannian_MDM", "control": "true_labels", "seed_idx": 0, "seed": 20261113, "runtime_s": 179.74853777885437, "test_subjects": ["S08", "S10", "S14"], "n_test": 1260}

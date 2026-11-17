@@ -1,0 +1,23 @@
+# Datos EEG: NUNCA se versionan (se descargan de sus fuentes oficiales)
+datos_crudos/
+raw/
+tesis-raw/
+epocas/
+epochs/
+*.gdf
+*.mat
+*.npz
+*.npy
+*.edf
+*.fif
+*.zip
+*.tgz
+# Entornos y temporales
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+*.log
+.DS_Store

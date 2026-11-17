@@ -1,0 +1,1 @@
+{"stratum": "001-2019_offline", "model": "ShallowConvNet", "control": "true_labels", "seed_idx": 5, "seed": 20261118, "runtime_s": 31.710811376571655, "test_subjects": ["P04", "P09"], "n_test": 720}

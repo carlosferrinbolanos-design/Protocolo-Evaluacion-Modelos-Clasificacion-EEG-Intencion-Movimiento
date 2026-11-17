@@ -1,0 +1,1 @@
+{"stratum": "001-2017_MI", "model": "FBCSP_SVM", "control": "true_labels", "seed_idx": 9, "seed": 20261122, "runtime_s": 304.1378047466278, "test_subjects": ["S07", "S09", "S13"], "n_test": 1260}

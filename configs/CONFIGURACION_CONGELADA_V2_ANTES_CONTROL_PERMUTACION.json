@@ -1,0 +1,122 @@
+{
+  "status": "FROZEN_BEFORE_PERMUTATION_CONTROL",
+  "source_notebook": "MAESTRIA EN INFORMATICA/TESIS/Clasificacion_EEG_3_Datasets_80_20.ipynb",
+  "analysis_strata_v2": [
+    "001-2017_ME",
+    "001-2017_MI",
+    "001-2019_offline",
+    "001-2020_gel",
+    "001-2020_water",
+    "001-2020_dry"
+  ],
+  "inclusion_rules": {
+    "001-2017": "S01_ME excluded; ME and MI analyzed separately",
+    "001-2019": "offline attempted-movement runs only",
+    "001-2020": "gel, water and dry analyzed separately; two movement classes only; no baseline correction"
+  },
+  "common_rules": {
+    "epoch_window_s": [
+      -0.5,
+      1.5
+    ],
+    "automatic_amplitude_rejection": "not applied because physical units are not demonstrated",
+    "split": "participant-disjoint 80/20; fixed before control"
+  },
+  "models": {
+    "CSP_LDA": {
+      "bandpass_hz": [
+        8,
+        30
+      ],
+      "csp_components": 12,
+      "csp_regularization": "Ledoit-Wolf",
+      "LDA": "lsqr, shrinkage=auto",
+      "001-2017": "CSP multiclase incremental por bloques, 12 componentes; LDA lsqr con shrinkage automático.",
+      "001-2019_001-2020": "CSP multiclase con Ledoit-Wolf, 12 componentes; LDA lsqr con shrinkage automático."
+    },
+    "FBCSP_SVM": {
+      "bands_hz": [
+        [
+          8,
+          12
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          20,
+          24
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          28,
+          32
+        ]
+      ],
+      "csp_components_per_band": 4,
+      "csp_regularization": "Ledoit-Wolf",
+      "SVM": "RBF, C=1.0, gamma=scale, class_weight=balanced",
+      "001-2017": "CSP incremental por bloque en seis bandas, 4 componentes/banda; SVM RBF C=1, gamma=scale, balanceado.",
+      "001-2019_001-2020": "CSP Ledoit-Wolf en seis bandas, 4 componentes/banda; SVM RBF C=1, gamma=scale, balanceado."
+    },
+    "Riemannian_MDM": {
+      "bandpass_hz": [
+        8,
+        30
+      ],
+      "covariance": "OAS",
+      "mean_and_distance": "Riemannian"
+    },
+    "EEGNet": {
+      "epochs": 20,
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_train": 64,
+      "batch_evaluation": 128,
+      "normalization": "per channel, fitted on training data only",
+      "001-2017": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; pérdida no ponderada; sin scheduler.",
+      "001-2019_001-2020": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; ponderación por clase y scheduler coseno."
+    },
+    "ShallowConvNet": {
+      "epochs": 20,
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_train": 64,
+      "batch_evaluation": 128,
+      "normalization": "per channel, fitted on training data only",
+      "001-2017": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; pérdida no ponderada; sin scheduler.",
+      "001-2019_001-2020": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; ponderación por clase y scheduler coseno."
+    },
+    "DeepConvNet": {
+      "epochs": 20,
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_train": 64,
+      "batch_evaluation": 128,
+      "normalization": "per channel, fitted on training data only",
+      "001-2017": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; pérdida no ponderada; sin scheduler.",
+      "001-2019_001-2020": "20 épocas, AdamW lr=0.001, weight decay=0.0001, lote 64; ponderación por clase y scheduler coseno."
+    }
+  },
+  "permutation_control": {
+    "test_labels": "unchanged",
+    "training_labels": "permuted within participant",
+    "seeds": [
+      20261113
+    ],
+    "primary_metric": "balanced_accuracy",
+    "interpretation": "performance should remain around the chance level if no leakage is present"
+  },
+  "configuration_scope": "Configuraciones preservadas por fuente; control de permutación previo a resultados con etiquetas reales."
+}

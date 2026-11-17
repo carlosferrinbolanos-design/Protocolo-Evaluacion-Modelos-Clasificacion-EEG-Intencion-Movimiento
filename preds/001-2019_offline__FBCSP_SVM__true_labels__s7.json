@@ -1,0 +1,1 @@
+{"stratum": "001-2019_offline", "model": "FBCSP_SVM", "control": "true_labels", "seed_idx": 7, "seed": 20261120, "runtime_s": 115.46408987045288, "test_subjects": ["P05", "P06"], "n_test": 720}

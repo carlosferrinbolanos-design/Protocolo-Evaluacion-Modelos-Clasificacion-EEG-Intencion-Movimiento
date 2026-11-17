@@ -1,0 +1,1 @@
+{"stratum": "001-2017_ME", "model": "CSP_LDA", "control": "labels_permuted_within_train_participant", "seed_idx": 0, "seed": 20261113, "runtime_s": 39.90389704704285, "test_subjects": ["S08", "S13", "S15"], "n_test": 1260}
