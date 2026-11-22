@@ -1,0 +1,32 @@
+{
+  "name": "v5-ablacion",
+  "order": "Orden interna de ejecución aprobada por el director (identificador y verificación omitidos en la versión pública)",
+  "nature": "Exploratory, post hoc band ablation. Does not modify the v5 run, its results or its configuration.",
+  "inherits": "v5 (v5/code/{extract_epochs,models,evaluate}.py; SHA-256 of the as-run files in v5/PROCEDENCIA.md). Same epochs (.npz), same 10 participant-disjoint splits (seeds 20261114+k), same model hyperparameters, same window -0.5 to 1.5 s, same metrics and test-label permutation/bootstrap code.",
+  "differences": {
+    "band_filter": "Applied to each v5 epoch (already 0.5 Hz high-passed on the continuous signal and resampled to 256 Hz), not to the continuous recording. Butterworth order 4, zero phase (scipy sosfiltfilt, default odd-extension padding, padlen = 3*(2*len(sos)+1)). Epoch-wise filtering uses no training data, so it cannot leak labels. Edge effect: low-pass 3 Hz on a 2 s epoch can distort roughly the first and last ~0.3 s; declared, not corrected.",
+    "arms": {
+      "A0_EEGNet_broadband": "Reference. Reuses the v5 EEGNet predictions (same splits and seeds); not re-run, because cuDNN training is not bit-reproducible.",
+      "A1_EEGNet_low": "EEGNet on 0.5-3 Hz: low-pass 3 Hz (Butterworth order 4) on the v5 epochs; the 0.5 Hz high-pass comes from v5.",
+      "A2_EEGNet_mu_beta": "EEGNet on 8-30 Hz: band-pass 8-30 Hz (Butterworth order 4).",
+      "B1_MDM_low": "MDM (OAS covariance, Riemannian distance) on 0.5-3 Hz: same low-pass as A1 instead of the v5 8-30 Hz band-pass. v5 MDM 8-30 Hz is the reference (not re-run).",
+      "C1_TensorCSPNet": "NOT included (optional arm; no decision by Carlos). Nothing installed. [Nota pública: C1 se añadió después, 21-11-2026, con ablacion_banda/code/c1/c1_runner_v2.py; ver v5/README.md.]"
+    },
+    "strata": [
+      "001-2017_ME",
+      "001-2017_MI",
+      "001-2019_offline",
+      "001-2020_gel",
+      "001-2020_water",
+      "001-2020_dry"
+    ],
+    "statistics": {
+      "per_arm_and_stratum": "Balanced accuracy and Cohen's kappa per test participant, averaged per split and over the 10 splits; participant bootstrap 95% CI (2000 draws); test-label permutation within participant (1000 draws) for p versus chance.",
+      "between_arm_contrasts": "Per stratum: A1 vs A2 and A1 vs A0. Participant-level paired difference in balanced accuracy (mean over the splits in which the participant was tested), two-sided sign-flip permutation test (10000 draws, seed 0).",
+      "holm_family": "One Holm family for the whole ablation: 3 arms (A1, A2, B1) x 6 strata versus chance = 18 tests, plus 2 contrasts x 6 strata = 12 tests; family size 30.",
+      "reduced_permutation_control": "Training-label permutation with 200 refits ONLY for A1 and A2 in 001-2020 gel, water and dry (same code as v5 permtrain). Not run for 2017 or 2019 (about 13 h per stratum and arm). Declared as a reduced control."
+    },
+    "execution": "Single CUDA process at a time (as in v5). Resumable: each prediction file and each permutation are written when finished and skipped on restart. Scheduled task 'AblacionBanda' restarts the run at logon after a power cut.",
+    "outputs": "Only under v5/ablacion_banda/ (original: D:/ICTQ/TESIS_pipeline_v5/ablacion_banda/)."
+  }
+}

@@ -1,0 +1,7 @@
+stratum,arm,n_perm,observed,null_mean,null_95,null_max,p_train_label_perm
+001-2020_dry,A1_EEGNet_low,200,0.5165,0.5,0.513,0.5267,0.0249
+001-2020_dry,A2_EEGNet_mu_beta,200,0.4927,0.5012,0.5119,0.5196,0.9104
+001-2020_gel,A1_EEGNet_low,200,0.5322,0.5044,0.5182,0.5291,0.005
+001-2020_gel,A2_EEGNet_mu_beta,200,0.5092,0.4998,0.5117,0.5162,0.0746
+001-2020_water,A1_EEGNet_low,200,0.5293,0.501,0.5136,0.5175,0.005
+001-2020_water,A2_EEGNet_mu_beta,200,0.5121,0.4972,0.5086,0.5144,0.0199

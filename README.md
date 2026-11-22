@@ -5,6 +5,8 @@
 [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/carlosferrinbolanos-design/Protocolo-Evaluacion-Modelos-Clasificacion-EEG-Intencion-Movimiento/blob/main/TESIS_pipeline_reproducible.ipynb)
 [![Versión](https://img.shields.io/badge/versión-v1.0--articulo-green.svg)](docs/CHANGELOG.md)
 
+> **Actualización (21-11-2026): la versión citada en el artículo es la corrida v5, en [`v5/`](v5/README.md).** Allí están el código de la corrida v5, la ablación de banda (A1, A2, B1 y C1 Tensor-CSPNet), las tablas agregadas y la procedencia (SHA-256) de cada script. El contenido de la raíz (`v1.0-articulo`) corresponde a la evaluación v2, declarada piloto no citable el 14-11-2026; se conserva como registro histórico.
+
 **Repositorio de verificación de la reproducibilidad del artículo.** Contiene el código, la configuración, los manifiestos de épocas, las predicciones por época, las tablas, las figuras y un cuaderno documentado. Con ellos, cualquier revisor puede regenerar y comprobar cada número publicado. **No contiene datos EEG:** se descargan de sus fuentes oficiales.
 
 **Autores:** David Aogusto Rodriguez Chamorro (estudiante) y Carlos Diego Ferrin Bolaños (director). Universidad Santiago de Cali, Facultad de Ingeniería, Maestría en Informática.

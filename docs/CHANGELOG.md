@@ -1,5 +1,11 @@
 # Historial de cambios
 
+## v2.0-v5 (21-11-2026)
+- Nueva carpeta [`v5/`](../v5/README.md) con el código de la **corrida v5** (`extract_epochs.py`, `models.py`, `evaluate.py`), los scripts de descarga y de control con etiquetas de entrenamiento permutadas, y la **ablación de banda** exploratoria: A1 y A2 (EEGNet en 0,5–3 Hz y 8–30 Hz), B1 (MDM en 0,5–3 Hz) y C1 (Tensor-CSPNet en banda baja; `c1_runner_v2.py`, `score_c1.py`).
+- Tablas agregadas de la v5 y de la ablación (Holm sobre 36 pruebas), sin datos por participante.
+- `v5/PROCEDENCIA.md`: SHA-256 de cada archivo ejecutado y descripción de las adaptaciones de la versión pública (solo rutas e identificadores internos).
+- La evaluación v2 (raíz del repositorio, `v1.0-articulo`) queda como piloto no citable.
+
 ## v1.0-articulo (17-11-2026)
 Versión que acompaña al artículo. Incluye todo lo anterior y además:
 - **Corrección de la configuración de las redes en 001-2019.** EEGNet, ShallowConvNet y DeepConvNet se reejecutaron con **pérdida ponderada por clase** (wᶜ = n / (K·nᶜ)) y **`CosineAnnealingLR(T_max = 20)`**, como indica la configuración establecida, en las 10 particiones y en el control por permutación (k = 0, 1). Fueron 36 corridas en Colab T4, con 0,30 unidades de cómputo.

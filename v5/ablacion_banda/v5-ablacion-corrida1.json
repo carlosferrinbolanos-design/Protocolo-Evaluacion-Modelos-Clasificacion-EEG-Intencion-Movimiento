@@ -1,0 +1,72 @@
+{
+  "name": "v5-ablacion-corrida1",
+  "nota_congelacion": "congelada a posteriori: el proceso arrancó 14:43:43 antes de la config formal",
+  "started_at": "2026-11-20 14:43:43 (America/Bogota)",
+  "character": "Exploratorio y post hoc sobre el protocolo v5",
+  "inherits": {
+    "pipeline": "v5",
+    "code": [
+      "v5/code/evaluate.py",
+      "v5/code/models.py"
+    ],
+    "epochs": "v5/epochs (generadas con v5/code/extract_epochs.py; no versionadas)"
+  },
+  "strata": [
+    "001-2017_ME",
+    "001-2017_MI",
+    "001-2019_offline",
+    "001-2020_gel",
+    "001-2020_water",
+    "001-2020_dry"
+  ],
+  "arms": {
+    "A1_EEGNet_low": {
+      "model": "EEGNet",
+      "band": "0.5-3 Hz",
+      "filter_implementation": "scipy.signal.sosfiltfilt con Butterworth orden 4 pasa-bajos a 3.0 Hz (output='sos') con padding por defecto de scipy (~33 muestras)",
+      "highpass_origin": "Pasa-altos de 0.5 Hz (FIR fase cero) ya aplicado sobre señal continua en el preprocesamiento v5",
+      "status": "obligatorio (en ejecucion)"
+    },
+    "A2_EEGNet_mu_beta": {
+      "model": "EEGNet",
+      "band": "8-30 Hz",
+      "filter_implementation": "scipy.signal.sosfiltfilt con Butterworth orden 4 pasa-banda 8.0-30.0 Hz con padding por defecto de scipy (~33 muestras)",
+      "status": "obligatorio (en ejecucion)"
+    },
+    "B1_MDM_low": {
+      "model": "MDM",
+      "estimator": "OAS",
+      "metric": "riemann",
+      "band": "0.5-3 Hz",
+      "filter_implementation": "mismo pasa-bajos que A1 (Butterworth orden 4 a 3.0 Hz, sosfiltfilt con padding por defecto)",
+      "status": "obligatorio (en ejecucion)"
+    },
+    "A0_EEGNet_broadband_v5": {
+      "model": "EEGNet",
+      "band": "banda ancha v5",
+      "status": "reutilizado de resultados v5 (results/predictions/{st}__EEGNet.csv); no reentrenado"
+    },
+    "C1_TensorCSPNet": {
+      "status": "ausente en la corrida viva 1; implementado en script v2 en disco y evaluado por separado"
+    }
+  },
+  "window": {
+    "window_used_in_run": "-0.5 a 1.5 s (513 muestras a 256 Hz)",
+    "v5_documented_window": "-0.5 a 1.5 s (confirmado en INFORME_PIPELINE_V5.md linea 21 y code/extract_epochs.py)",
+    "order_text_discrepancy": "La orden citaba 'ventana (0-1,5 s)' citando propuesta previa; el pipeline v5 y los archivos en epochs/ tienen exactamente 513 muestras (-0.5 a 1.5 s), que es lo que recibe ev.load()"
+  },
+  "protocol": {
+    "splits": "10 particiones aleatorias entre participantes (round(20%) test)",
+    "seeds": "20261114+k por split",
+    "hyperparameters": "20 epocas, AdamW lr 1e-3, weight decay 1e-4, batch 64, cosine schedule, z-score por canal ajustado solo en train",
+    "metrics": "balanced accuracy y Cohen's kappa por participante promediado por split",
+    "test_label_permutations": "1000 permutaciones dentro de participante (ev.score_predictions) + bootstrap 2000 remuestreos IC95",
+    "train_label_permutations": "200 reentrenamientos exclusivamente para 2020 gel, 2020 agua y 2020 seco en brazos A1 y A2",
+    "contrasts": "A1 vs A2 y A1 vs A0 con sign-flip permutation (10000 repeticiones) a nivel participante",
+    "multiplicity": "Correccion Holm dentro de la familia de pruebas de la ablacion"
+  },
+  "script": {
+    "file": "v5/ablacion_banda/code/ablation_v1_en_ejecucion.py",
+    "sha256": "780da030da3047fe4b3de28551e73182cf8c2bf53fd32250223c8e5fb9b21136"
+  }
+}
