@@ -68,3 +68,4 @@ urllib3==2.8.0
 wfdb==4.3.1
 xmltodict==1.0.4
 yarl==1.25.1
+spd_learn==0.2.1  # instalado después del congelado, solo para el brazo C1

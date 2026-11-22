@@ -1,5 +1,9 @@
 # Historial de cambios
 
+## v2.0.1-v5 (21-11-2026)
+- `v5/ablacion_banda/code/c1/score_c1.py`: se reemplaza la reconstrucción por el script original que puntuó C1 (SHA-256 en `v5/PROCEDENCIA.md`; solo se adaptó la ruta). Las cifras no cambian.
+- Versión de `spd_learn` fijada (0.2.1) en `v5/README.md` y `v5/requirements_v5_pip_freeze.txt`.
+
 ## v2.0-v5 (21-11-2026)
 - Nueva carpeta [`v5/`](../v5/README.md) con el código de la **corrida v5** (`extract_epochs.py`, `models.py`, `evaluate.py`), los scripts de descarga y de control con etiquetas de entrenamiento permutadas, y la **ablación de banda** exploratoria: A1 y A2 (EEGNet en 0,5–3 Hz y 8–30 Hz), B1 (MDM en 0,5–3 Hz) y C1 (Tensor-CSPNet en banda baja; `c1_runner_v2.py`, `score_c1.py`).
 - Tablas agregadas de la v5 y de la ablación (Holm sobre 36 pruebas), sin datos por participante.

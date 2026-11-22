@@ -11,8 +11,9 @@ Los archivos se copiaron el 21-11-2026 desde el equipo de cómputo de la corrida
 | `ablacion_banda/code/ablation.py` | `5baddfec31377dd7768adfb5c2fb493421dfe68e908c267562e2985fe83102ed` | adaptado (ver abajo) |
 | `ablacion_banda/code/c1/c1_runner_v2.py` | `d6c8f9a9b3ef1234c14ebab3ac95cf7f0b8ca1df0c0463aeb5bc3bfacbaf0711` | adaptado (ver abajo) |
 | `ablacion_banda/code/c1/smoke_c1_cpu.py` | `bd56d54b3799e6a16b96cc6647ca5a4bdd5d97472f0578db747af8e9b9a37ad9` | adaptado (ver abajo) |
+| `ablacion_banda/code/c1/score_c1.py` | `7360470df82c6b45e7142a589f1f51dccbdecb6eb88484ff351dabed628ec06b` | adaptado (ver abajo); SHA-256 de la versión pública: `da8d50a4e49c81ee41a65be5eae0667d36b8c896e1efa14150910f852ad03e16` |
 | `ablacion_banda/v5-ablacion.json` | `7d12bc7718e9b3dabc52c03293b95da0953ac0ee3c4ed13136b5ce49fd171a5f` | adaptado (ver abajo) |
-| `requirements_v5_pip_freeze.txt` | `67ee9dee9ff3ae98439cd82d24f9c606cb1dad2d9806f53eccd47d3be3e84b97` | idéntico |
+| `requirements_v5_pip_freeze.txt` | `67ee9dee9ff3ae98439cd82d24f9c606cb1dad2d9806f53eccd47d3be3e84b97` | original más una línea añadida al final (`spd_learn==0.2.1`, leída del METADATA del entorno) |
 | `scripts/download.sh` | `7152a2d035e4874956f24ed4b5c81c43a9841fdfb027603cc20c90e639628f61` | adaptado (ver abajo) |
 | `scripts/unzip_all.sh` | `d23af8a1ee01fc23aad3d09aa47f26cd8479ba00c65b4a652c77f7e45bc0acf6` | adaptado (ver abajo) |
 | `scripts/run_permtrain.sh` | `257e6a38f9f4e65fc45999f677d730698b3a967333613586bc1cdd9109749929` | adaptado (ver abajo) |
@@ -24,7 +25,7 @@ Las adaptaciones se limitan a rutas, intérpretes e identificadores internos. No
 - **Scripts de shell.** Las rutas de datos pasan a `$TESIS_DATA_ROOT` y el intérprete a `$PYTHON`. `unzip_all.sh` llamaba a un verificador temporal de rutas de zip (`zipcheck.py`), que no se conservó: ahora se indica con `$ZIPCHECK`.
 - **Identificadores internos.** Se quitaron de los docstrings y de `v5-ablacion.json` los identificadores de las órdenes internas de ejecución y su verificación.
 - **`v5-ablacion-corrida1.json`.** Es la configuración de la corrida 1 de la ablación, escrita a posteriori (el proceso arrancó a las 14:43:43 del 20-11-2026, antes de la configuración formal). Se quitaron el PID, la tarea programada y el identificador de la orden. Se conserva el SHA-256 del script ejecutado.
-- **`score_c1.py`.** Es nuevo y reproduce el cálculo en memoria que se hizo el 21-11-2026: `evaluate.score_predictions` con 1000 permutaciones, 2000 réplicas bootstrap y semilla 0, igual que para A1, A2 y B1.
+- **`score_c1.py`.** Es el script original con el que se puntuó C1 el 21-11-2026 a las 8:46 p. m. (hora de Bogotá), copiado byte a byte (SHA-256 arriba). Solo se cambió la ruta `V5` por `TESIS_V5_ROOT` (con `import os`). Llama a `evaluate.score_predictions` (1000 permutaciones de etiquetas de prueba, 2000 réplicas bootstrap, semilla 0, igual que para A1, A2 y B1) y calcula kappa por participante. Escribe el resumen en la salida estándar sin códigos de participante. Al final valida A1 y B1 en 001-2017 ME contra `results/ablation_summary.csv`, que es la salida de `ablation_v1_en_ejecucion.py score` y no se versiona; su equivalente con Holm sobre 36 pruebas es `tablas/ablation_summary_36.csv`.
 
 ## No incluido
 - Datos EEG crudos, épocas (`.npz`), manifiestos por participante, predicciones por época y checkpoints. Todos contienen o derivan de códigos o nombres de archivo de participantes. Los datos son públicos y se descargan de sus fuentes (ver `README.md`).
